@@ -1,0 +1,230 @@
+{
+  "created_at": "2026-10-09T19:25:29",
+  "input_file": "D:\\miniproject\\ieee_word.pdf",
+  "sha256": "26dbb6e9d03e4c72badb32377ebec714badfab29394ce2ff6ac2f263c6f71487",
+  "exact_duplicate": null,
+  "title": "International Conference on Technology, Engineering, Management for Societal Impact using Marketing, Entrepreneurship",
+  "abstract": "—In forest-adjacent forest boundaries, human-wildlife conflict has become a major problem. Wild animals regularly enter residential and agricultural areas, which may have an impact on livestock security, agricultural productivity, and hu- man safety. For continuous, real-time monitoring, conventional surveillance techniques like motion sensors, camera traps, and manual patrolling are inadequate. In order to monitor wildlife in real time, this article suggests a Wildlife Intrusion Detection and Early Warning System that combines edge computing, deep learning, and IoT-based alerting. . The YOLOv8n model was trained with wild and non-wild life annotated images and de- ployed in Raspberry Pi with camera for detection. Upon detection, the system triggers a Telegram-based instant notification along with the captured image and stores the detection record locally on the Raspberry Pi. Experimental results demonstrate strong detection performance with 91.3 Index Terms—- Wildlife detection; YOLOv8n; Raspberry Pi; edge devices; object detection; Telegram alert; human–wildlife conflict; deep learning I.",
+  "new_paper_facts": {
+    "methods_mentioned": [
+      "cnn",
+      "yolo"
+    ],
+    "metrics_mentioned": [
+      "accuracy",
+      "f1-score",
+      "iou",
+      "map",
+      "mean average precision",
+      "precision",
+      "recall"
+    ],
+    "accuracy_values_found_percent": []
+  },
+  "related_papers": [
+    {
+      "paper_id": "PAPER_039",
+      "title": "Edge Intelligence: Paving the Last Mile of Artificial Intelligence With Edge Computing",
+      "best_vector_distance": 0.42782,
+      "retrieved_chunk_count": 4,
+      "evidence": [
+        {
+          "chunk_id": "PAPER_039_CHUNK_003",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.42782,
+          "text": "to precision agriculture, smart home [14], and Industrial Internet of Things (IIoT) [15]. Notably, research and practice on this emerging interdiscipline—EI—are still in a very early stage. There is, in general, a lack of venue dedicated for summarizing, discussing, and disseminating the recent advances of EI, in both industrial and academia. To bridge this gap, in this paper, we conduct a comprehensive and concrete survey of the recent research efforts on EI. Speciﬁcally, we will ﬁrst review the background of AI. We will then discuss the motivation, deﬁnition, and rating of EI. Next, we will further review and taxonomically summarize the emerging computing architectures and enabling technologies for EI model training and inference. Finally, we will discuss some open research challenges and opportunities for EI. This paper is organized as follows. 1) Section II gives an overview of the basic concepts of AI, with a focus on deep learning—the most popular sector of AI. 2) Section III discusses the motivation, deﬁnition, and rating of EI. 3) Section IV reviews the architectures, enabling tech- niques, systems, and frameworks for training EI models. 4) Section V reviews the architectures, enabling techniques, systems, and frameworks for EI model inference. 5) Section VI discusses future directions and challenges of EI. For this survey, we hope it can elicit escalating atten- tions, stimulate fruitful discussions, and inspire further research ideas on EI. Vol. 107, No. 8, August 2019 | PROCEEDINGS OF THE IEEE 1739"
+        },
+        {
+          "chunk_id": "PAPER_039_CHUNK_008",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.44764,
+          "text": "Zhou et al.: Edge Intelligence: Paving the Last Mile of Artiﬁcial Intelligence With Edge Computing volumes and extract insights from them for high-quality decision making. As one of the most popular AI techniques, deep learning brings the ability to automatically identify patterns and detect anomalies in the data sensed by the edge device, as exempliﬁed by population distribution, trafﬁc ﬂow, humidity, temperature, pressure, and air qual- ity. The insights extracted from the sensed data are then fed to the real-time predictive decision-making (e.g., public transportation planning, trafﬁc control, and driving alert) in response to the fast-changing environments, increasing the operational efﬁciency. As forecast by Gartner [33], more than 80% of enterprise IoT projects will include an AI component by 2022, up from only 10% today. 2) Edge Computing Is Able to Prosper AI With Richer Data and Application Scenarios: It is widely recognized that the driving force behind the recent booming of deep learning is fourfold: algorithm, hardware, data, and application scenarios. While the effect of algorithm and hardware on the development of deep learning is intuitive, the role of data and application scenarios has been mostly over- looked. Speciﬁcally, to improve the performance of a deep learning algorithm, the most commonly adopted approach is to reﬁne the DNN with more layers of neurons. By doing this, we need to learn more parameters in the DNN and so does the data required for training increase. This deﬁnitely demonstrates the importance of data on the development of AI. Having recognized the importance of data, the next problem is where are the data from. Traditionally, data are mostly born and stored in the megascale datacenters. Nevertheless, with the rapid development of IoT, the trend is reversing now. According to Cisco’s report [3], in the near future, massive IoT data will be generated at the edge side. If these data are processed by AI algorithms at the cloud data center, it will consume a lot of bandwidth resources and bring great pressure to the cloud data center. To address these challenges, edge computing is proposed to achieve low-latency data processing by sinking the computing capability from the cloud data center to the edge side, i.e., data generation source, which may enable AI processing with high performance. While edge computing and AI complement each other from a technical perspective, their application and popu- larization are also mutually"
+        },
+        {
+          "chunk_id": "PAPER_039_CHUNK_001",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.47008,
+          "text": "Edge Intelligence: Paving the Last Mile of Artiﬁcial Intelligence With Edge Computing This article conducts a comprehensive survey of the research efforts on edge intelligence. It provides an overview of the architectures, frameworks, and emerging key technologies for deep learning model toward training and inference at the network edge. By ZHI ZHOU, XU CHEN, EN LI, LIEKANG ZENG, KE LUO, AND JUNSHAN ZHANG, Fellow IEEE ABSTRACT | With the breakthroughs in deep learning, the recent years have witnessed a booming of artiﬁcial intel- ligence (AI) applications and services, spanning from personal assistant to recommendation systems to video/audio surveil- lance. More recently, with the proliferation of mobile comput- ing and Internet of Things (IoT), billions of mobile and IoT devices are connected to the Internet, generating zillions bytes of data at the network edge. Driving by this trend, there is an urgent need to push the AI frontiers to the network edge so as to fully unleash the potential of the edge big data. To meet this demand, edge computing, an emerging paradigm that pushes computing tasks and services from the network core to the network edge, has been widely recognized as a promising solu- tion. The resulted new interdiscipline, edge AI or edge intelli- gence (EI), is beginning to receive a tremendous amount of Manuscript received February 8, 2019; revised April 13, 2019; accepted May 14, 2019. Date of publication June 12, 2019; date of current version August 5, 2019. This work was supported in part by the National Key Research and Development Program of China under Grant 2017YFB1001703, in part by the National Science Foundation of China under Grant U1711265 and Grant 61802449, in part by the Program for Guangdong Introducing Innovative and Entrepreneurial Teams under Grant 2017ZT07X355, in part by the Guangdong Natural Science Funds under Grant 2018A030313032, in part by the Fundamental Research Funds for the Central Universities under Grant 17lgjc40, in part by the U.S. Army Research Ofﬁce under Grant W911NF-16-1-0448, and in part by the Defense Threat Reduction Agency (DTRA) under Grant HDTRA1-13-1-0029. (Corresponding author: Xu Chen.) Z. Zhou, X. Chen, E. Li, L. Zeng, and K. Luo are with the School of Data and Computer Science, Sun Yat-sen University (SYSU), Guangzhou 510006, China (e-mail: zhouzhi9@mail.sysu.edu.cn; chenxu35@mail.sysu.edu.cn; lien5@mail2.sysu.edu; luok7@mail2.sysu.edu; zenglk3@mail2.sysu.edu). J. Zhang is with the School of"
+        }
+      ]
+    },
+    {
+      "paper_id": "PAPER_054",
+      "title": "Deep learning and computer vision in plant disease detection: a comprehensive review of techniques, models, and trends in precision agriculture",
+      "best_vector_distance": 0.46927,
+      "retrieved_chunk_count": 20,
+      "evidence": [
+        {
+          "chunk_id": "PAPER_054_CHUNK_041",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.46927,
+          "text": "contributing to sustainable and productive farming practices. However, challenges persist, such as the requirement for diverse and large datasets for model training, which limits the generalizability of models. Future research should focus on creating standardized datasets and fostering collaboration among researchers to address this issue. The interpretability of deep learning models is also crucial, as their inherent com­ plexity poses challenges in understanding their decision-making processes. Addressing this interpretability gap is essential for gaining the trust of end-users, especially in agricultural settings where decisions based on disease identification models directly affect crop yield 1 3 92 Page 48 of 64 Deep learning and computer vision in plant disease detection: a… and food security. Researchers and practitioners must explore model compression tech­ niques, lightweight architectures, and edge computing solutions to make these technologies more accessible and feasible for real-world deployment. 12.1 Outcomes The thorough analysis of “Deep Learning–Computer Vision for Plant Disease Detection” summarizes the current knowledge of DL and CV, which offers insightful information to agricultural and plant science academicians, practitioners, and policymakers. The review’s outcomes include: 12.1.1 Knowledge synthesis The study provides a collective resource for researchers initiating or advancing in the field by integrating information on employing deep learning-driven computer vision in plant dis­ ease detection. 12.1.2 Guidance for practitioners A comprehensive evaluation of imaging methodologies, sensor configurations, camera selection, and model construction provides practitioners with the knowledge needed to facilitate well-informed assessments, allowing them to select the most appropriate strate­ gies for their particular use cases. 12.1.3 Dataset evaluation Researchers acquire a more profound comprehension of the accessible plant disease data­ sets, enabling them to make knowledgeable judgments regarding dataset selection and emphasizing the significance of filling in the current data diversity and quality gaps. 12.1.4 Performance assessment In plant disease identification, discussing performance metrics facilitates a standardized method for evaluating the accuracy, precision, and recall of classification and object rec­ ognition models. This study helps researchers to examine their models more successfully. 12.1.5 Identification of challeng"
+        },
+        {
+          "chunk_id": "PAPER_054_CHUNK_007",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.47699,
+          "text": "companies have built WeChat applets and object/disease identification apps. Additionally, it is made simpler and less expensive by automated disease diagnosis that requires the observation of symptoms on plant leaves. This section eases the use of machine vision to offer robot guidance and autonomous pro­ cess control using images (Kumar and Singh 2020; Tsaftaris et al. 2016; Yang et al. 2019a, b). In machine vision (MV) an imaging sensor is used to take plant photographs and assess if they have pests and disease attacks (Lee et al. 2017). Plant diseases and pest detection 1 3 92 Page 6 of 64 Deep learning and computer vision in plant disease detection: a… technologies based on machine vision have partially replaced visual identification (Martin et al. 2022). Machine vision has been particularly beneficial in diagnosing the severity of diseases. An element of the MV, i.e., deep learning (DL), can be employed to ascertain the severity of diseases affecting plants and animals. MV plays a significant role in farm operations since it aids in the application of robotics for plant disease diagnosis, pest control, estimating yield and precision agriculture using visual information. The MV systems use imaging sen­ sors such as RGB, hyperspectral, and thermal cameras to take images of the croplands and employ picture processing techniques such as pattern recognition algorithms, specifically trained neuronal networks like CNNs. Such automation assists the farmer in understanding disease development in crops and the use of effective control measures enhancing the man­ agement of crops and their yields. Despite the potential use of just-in-time crop monitoring using MV, several constraints that include equipment price, variability of the environment and incapability of acquiring enough data persist in hindering its practical use. It also cat­ egorizes diseases and prevents infections from being discovered belatedly (Lee et al. 2017). The technique might be used to examine and assess how much damage they have already done (Martin et al. 2022). Therefore, it is essential to find the technology that is reasonable in price and can moni­ tor plants to find and diagnose diseases, insect pests, etc. as farmers can take the appropri­ ate procedures and safeguards after recognizing the diseases. The rapid development of software and hardware has significantly advanced image processing in agriculture. Image processing techniques (IPT) are used to manipulate and analyze images f"
+        },
+        {
+          "chunk_id": "PAPER_054_CHUNK_049",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.47951,
+          "text": "Deep learning and computer vision in plant disease detection: a… Girshick R (2015) Fast R-CNN. In Proceedings of the IEEE International Conference on Computer Vision, Santiago, Chile, 11–18 December 2015 Girshick R, Donahue J, Darrell T, Malik J (2014) Rich feature hierarchies for accurate object detection and semantic segmentation. In Proceedings of the IEEE Conference on Computer Vision and Pattern Rec­ ognition, Columbus, OH, USA, 20–23 June 2014 Gomez MS, Vergara A, Montenegro F, Alonso Ruiz H, Safari N, Raymaekers D, Ocimati W, Ntamwira J, Tits L, Omondi AB et al (2020) Detection of banana plants and their major diseases through aerial images and machine learning methods: a case study in DR Congo and Republic of Benin. J Photogramm Remote Sens 169:110–124 Goncharov P, Ososkov G, Nechaevskiy A, Nestsiarenia I (2019) Disease detection on the plant leaves by deep learning. In Selected Papers from the XX International Conference on Neuro-informatics, Advances in Neural Computation, Machine Learning, and Cognitive Research II, pp 151–159, Moscow, Russia Gong X, Zhang S (2023) A high-precision detection method of apple leaf diseases using improved faster R-CNN. Agric (Switzerland) 13(2). https://doi.org/10.3390/agriculture13020240 Goodfellow I, Pouget-Abadie J, Mirza M, Xu B, Warde-Farley D, Ozair S, Courville A, Bengio Y (2014) Generative adversarial nets. In Advances in Neural Information Processing Systems, pp 2672–2680 Granum E, Pérez-Bueno ML, Calderón CE, Ramos C, de Vicente A, Cazorla FM, Barón M (2015) Metabolic responses of avocado plants to stress induced by Rosellinia Necatrix analysed by fluorescence and ther­ mal imaging. Eur J Plant Pathol 142:625–632 Grinblat GL, Uzal LC, Larese MG, Granitto PM (2016) Deep learning for plant identification using vein morphological patterns. Comput Electron Agric 127:418–424 Gruner E, Astor T, Wachendorf M (2019) Biomass prediction of heterogeneous temperate grasslands using an SfM approach based on UAV imaging. Agronomy 9:54 Gudkov SV, Matveeva TA, Sarimov RM, Simakin AV, Stepanova EV, Moskovskiy MN, Dorokhov AS, Izmailov AY (2023) Optical methods for the detection of plant pathogens and diseases (review). AgriEngineering 5(4):1789–1812. https://doi​.org/10.339​0/agriengin​eering50​40110 Guo Y, Zhang J, Yin C et al (2020) Plant disease identification based on deep learning algorithm in smart farming. Discrete Dyn Nat Soc 2020:2479172 Hernandez S, López JL (2020) Uncertainty quantification for plant disease de"
+        }
+      ]
+    },
+    {
+      "paper_id": "PAPER_018",
+      "title": "Deep learning in agriculture: A survey",
+      "best_vector_distance": 0.47875,
+      "retrieved_chunk_count": 3,
+      "evidence": [
+        {
+          "chunk_id": "PAPER_018_CHUNK_001",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.47875,
+          "text": "Andreas Kamilaris1 and Francesc X. Prenafeta-Boldú Institute for Food and Agricultural Research and Technology (IRTA) Abstract: Deep learning constitutes a recent, modern technique for image processing and data analysis, with promising results and large potential. As deep learning has been successfully applied in various domains, it has recently entered also the domain of agriculture. In this paper, we perform a survey of 40 research efforts that employ deep learning techniques, applied to various agricultural and food production challenges. We examine the particular agricultural problems under study, the specific models and frameworks employed, the sources, nature and pre-processing of data used, and the overall performance achieved according to the metrics used at each work under study. Moreover, we study comparisons of deep learning with other existing popular techniques, in respect to differences in classification or regression performance. Our findings indicate that deep learning provides high accuracy, outperforming existing commonly used image processing techniques. Keywords: Deep learning, Agriculture, Survey, Convolutional Neural Networks, Recurrent Neural Networks, Smart Farming, Food Systems. 1 Corresponding Author. Email: andreas.kamilaris@irta.cat 1. Introduction Smart farming (Tyagi, 2016) is important for tackling the challenges of agricultural production in terms of productivity, environmental impact, food security and sustainability (Gebbers & Adamchuk, 2010). As the global population has been continuously increasing (Kitzes, et al., 2008), a large increase on food production must be achieved (FAO, 2009), maintaining at the same time availability and high nutritional quality across the globe, protecting the natural ecosystems by using sustainable farming procedures. To address these challenges, the complex, multivariate and unpredictable agricultural ecosystems need to be better understood by monitoring, measuring and analyzing continuously various physical aspects and phenomena. This implies analysis of big agricultural data (Kamilaris, Kartakoullis, & Prenafeta-Boldú, A review on the practice of big data analysis in agriculture, 2017), and the use of new information and communication technologies (ICT) (Kamilaris, Gao, Prenafeta-Boldú, & Ali, 2016), both for short-scale crop/farm management as well as for larger-scale ecosystems’ observation, enhancing the existing tasks of management and decision/policy making by context, situation and "
+        },
+        {
+          "chunk_id": "PAPER_018_CHUNK_027",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.5252,
+          "text": "general concepts and best practices of deep learning, as described through this survey, to other areas of agriculture where this modern technique has not yet been adequately used. Some of these areas have been identified in the discussion section. Our aim is that this survey would motivate more researchers to experiment with deep learning, applying it for solving various agricultural problems involving classification or prediction, related to computer vision and image analysis, or more generally to data analysis. The overall benefits of deep learning are encouraging for its further use towards smarter, more sustainable farming and more secure food production. Acknowledgments We would like to thank the reviewers, whose valuable feedback, suggestions and comments increased significantly the overall quality of this survey. This research has been supported by the P-SPHERE project, which has received funding from the European Union’s Horizon 2020 research and innovation programme under the Marie Skodowska- Curie grant agreement No 665919. References Amara, J., Bouaziz, B., & Algergawy, A. (2017). A Deep Learning-based Approach for Banana Leaf Diseases Classification. (págs. 79-88). Stuttgart: BTW workshop. Bahrampour, S., Ramakrishnan, N., Schott, L., & Shah, M. (2015). Comparative study of deep learning software frameworks. arXiv preprint arXiv, 1511(06435). Bargoti, S., & Underwood, J. (2016). Deep Fruit Detection in Orchards. arXiv preprint arXiv, 1610(03677). Bastiaanssen, W., Molden, D., & Makin, I. (2000). Remote sensing for irrigated agriculture: examples from research and possible applications. Agricultural water management, 46(2), 137-155. Canziani, A., Paszke, A., & Culurciello, E. (2016). An Analysis of Deep Neural Network Models for Practical Applications. arXiv preprint arXiv, 1605(07678). Chen, S. W., Shivakumar, S. S., Dcunha, S., Das, J., Okon, E., Qu, C., & Kumar, V. (2017). Counting Apples and Oranges With Deep Learning: A Data-Driven Approach. IEEE Robotics and Automation Letters, 2(2), 781-788. Chen, Y., Lin, Z., Zhao, X., Wang, G., & Gu, Y. (2014). Deep Learning-Based Classification of Hyperspectral Data. IEEE Journal of Selected topics in applied earth observations and remote sensing, 7(6), 2094-2107. Chi, M., Plaza, A., Benediktsson, J. A., Sun, Z., Shen, J., & Zhu, Y. (2016). Big data for remote sensing: challenges and opportunities. Proceedings of the IEEE, 104(11), 2207-2219. Christiansen, P., Nielsen, L. N., Steen, K. A., Jørgensen, R"
+        },
+        {
+          "chunk_id": "PAPER_018_CHUNK_006",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.54032,
+          "text": "and TensorFlow), Caffe, PyTorch, TFLearn, Pylearn2 and the Deep Learning Matlab Toolbox. Some of these tools (i.e. Theano, Caffe) incorporate popular architectures such as the ones mentioned above (i.e. AlexNet, VGG, GoogleNet), either as libraries or classes. For a more elaborate description of the DL concept and its applications, the reader could refer to existing bibliography (Schmidhuber, 2015), (Deng & Yu, 2014), (Wan, et al., 2014), (Najafabadi, et al., 2015), (Canziani, Paszke, & Culurciello, 2016), (Bahrampour, Ramakrishnan, Schott, & Shah, 2015). 4. Deep Learning Applications in Agriculture In Appendix II, we list the 40 identified relevant works, indicating the agricultural-related research area, the particular problem they address, DL models and architectures implemented, sources of data used, classes and labels of the data, data pre-processing and/or augmentation employed, overall performance achieved according to the metrics adopted, as well as comparisons with other techniques, wherever available. 4.1 Areas of Use Sixteen areas have been identified in total, with the popular ones being identification of weeds (5 papers), land cover classification (4 papers), plant recognition (4 papers), fruits counting (4 papers) and crop type classification (4 papers). It is remarkable that all papers, except from (Demmers T. G., et al., 2010), (Demmers T. G., Cao, Parsons, Gauss, & Wathes, 2012) and (Chen, Lin, Zhao, Wang, & Gu, 2014), were published during or after 2015, indicating how recent and modern this technique is, in the domain of agriculture. More precisely, from the remaining 37 papers, 15 papers have been published in 2017, 15 in 2016 and 7 in 2015. The large majority of the papers deal with image classification and identification of areas of interest, including detection of obstacles (e.g. (Steen, Christiansen, Karstoft, & Jørgensen, 2016), (Christiansen, Nielsen, Steen, Jørgensen, & Karstoft, 2016)) and fruit counting (e.g. (Rahnemoonfar & Sheppard, 2017), (Sa, et al., 2016)). Some papers focus on predicting future parameters, such as corn yield (Kuwata & Shibasaki, 2015) soil moisture content at the field (Song, et al., 2016) and weather conditions (Sehgal, et al., 2017). From another perspective, most papers (20) target crops, while few works consider issues such as weed detection (8 papers), land cover (4 papers), research on soil (2 papers), livestock agriculture (3 papers), obstacle detection (3 papers) and weather prediction (1 paper). "
+        }
+      ]
+    },
+    {
+      "paper_id": "PAPER_033",
+      "title": "A Deep Learning Approach to Network Intrusion Detection",
+      "best_vector_distance": 0.49194,
+      "retrieved_chunk_count": 3,
+      "evidence": [
+        {
+          "chunk_id": "PAPER_033_CHUNK_001",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.49194,
+          "text": "IEEE TRANSACTIONS ON EMERGING TOPICS IN COMPUTATIONAL INTELLIGENCE, NOVEMBER 2017 1 A Deep Learning Approach to Network Intrusion Detection Nathan Shone, Tran Nguyen Ngoc, Vu Dinh Phai, Qi Shi Abstract—Network Intrusion Detection Systems (NIDSs) play a crucial role in defending computer networks. However, there are concerns regarding the feasibility and sustainability of current approaches when faced with the demands of modern networks. More speciﬁcally, these concerns relate to the increasing levels of required human interaction and the decreasing levels of detection accuracy. This paper presents a novel deep learning technique for intrusion detection, which addresses these concerns. We detail our proposed non-symmetric deep auto-encoder (NDAE) for unsupervised feature learning. Furthermore, we also propose our novel deep learning classiﬁcation model constructed using stacked NDAEs. Our proposed classiﬁer has been implemented in GPU-enabled TensorFlow and evaluated using the benchmark KDD Cup ’99 and NSL-KDD datasets. Promising results have been obtained from our model thus far, demonstrating improvements over existing approaches and the strong potential for use in modern NIDSs. Index Terms—deep learning, anomaly detection, auto-encoders, KDD, network security.! 1 INTRODUCTION O NE of the major challenges in network security is the provision of a robust and effective Network Intrusion Detection System (NIDS). Despite the signiﬁcant advances in NIDS technology, the majority of solutions still operate using less-capable signature-based techniques, as opposed to anomaly detection techniques. There are several reasons for this reluctance to switch, including the high false error rate (and associated costs), difﬁculty in obtaining reliable training data, longevity of training data and behavioural dynamics of the system. The current situation will reach a point whereby reliance on such techniques leads to ineffec- tive and inaccurate detection. The speciﬁcs of this challenge are to create a widely-accepted anomaly detection technique capable of overcoming limitations induced by the ongoing changes occurring in modern networks. We are concerned with three main limitations, which contribute to this network security challenge. The ﬁrst is the drastic growth in the volume of network data, which is set to continue. This growth can be predominantly attributed to increasing levels of connectivity, the popularity of the Internet of Things and the extensive adoption of "
+        },
+        {
+          "chunk_id": "PAPER_033_CHUNK_018",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.51855,
+          "text": "Yan, Z. Chen, K. Mao, P. Wang, and R. X. Gao, “Deep Learning and Its Applications to Machine Health Monitoring: A Survey,” submitted to IEEE Transactions on Neural Networks and Learning Systems, vol. 14, no. 8, pp. 1–14, dec 2016. [Online]. Available: http://arxiv.org/abs/1612.07640 [3] S. Hou, A. Saas, L. Chen, and Y. Ye, “Deep4MalDroid: A Deep Learning Framework for Android Malware Detection Based on Linux Kernel System Call Graphs,” in 2016 IEEE/WIC/ACM Inter- national Conference on Web Intelligence Workshops (WIW). Omaha, Nebraska, USA: IEEE, oct 2016, pp. 104–111. [4] IDC, “Executive Summary: Data Growth, Business Opportunities, and the IT Imperatives — The Digital Universe of Opportunities: Rich Data and the Increasing Value of the Internet of Things,” IDC, MA, USA, Tech. Rep., 2014. [Online]. Available: https://www.emc.com/leadership/digital-universe/ 2014iview/executive-summary.htm [5] Juniper Networks, “Juniper Networks - How many Packets per Second per port are needed to achieve Wire-Speed?” 2015. [Online]. Available: https://kb.juniper.net/InfoCenter/ index?page=content{\\&}id=KB14737 [6] I. Goodfellow, Y. Bengio, and A. Courville, Deep Learning. MIT Press, 2016, http://www.deeplearningbook.org. [7] L. Deng, “Deep Learning: Methods and Applications,” Foundations and Trends in Signal Processing, vol. 7, no. 3-4, pp. 197–387, aug 2014. [8] P. Vincent, H. Larochelle, I. Lajoie, Y. Bengio, and P.-A. Manzagol, “Stacked denoising autoencoders: Learning useful representations in a deep network with a local denoising criterion,” Journal of Machine Learning Research, vol. 11, no. Dec, pp. 3371–3408, 2010. [9] G. E. Hinton and R. R. Salakhutdinov, “Reducing the dimension- ality of data with neural networks,” science, vol. 313, no. 5786, pp. 504–507, 2006. [10] Y. Wang, H. Yao, and S. Zhao, “Auto-encoder based dimensional- ity reduction,” Neurocomputing, vol. 184, pp. 232–242, 2016. [11] Z. Liang, G. Zhang, J. X. Huang, and Q. V. Hu, “Deep learning for healthcare decision making with EMRs,” in 2014 IEEE International Conference on Bioinformatics and Biomedicine (BIBM), no. Cm. IEEE, nov 2014, pp. 556–559."
+        },
+        {
+          "chunk_id": "PAPER_033_CHUNK_002",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.52343,
+          "text": "these techniques, such as the comparatively high level of human expert interaction required; expert knowledge is needed to process data e.g. identifying useful data and patterns. Not only is this a labour intensive and expensive process but it is also error prone [2]. Similarly, a vast quantity of training data is required for operation (with associated time overheads), which can become challenging in a heterogeneous and dynamic environment. To address the above limitations, a research area cur- rently receiving substantial interest across multiple domains is that of deep learning. This is an advanced subset of ma- chine learning, which can overcome some of the limitations of shallow learning. Thus far, initial deep learning research has demonstrated that its superior layer-wise feature learn- ing can better or at least match the performance of shallow learning techniques [3]. It is capable of facilitating a deeper analysis of network data and faster identiﬁcation of any anomalies. In this paper, we propose a novel deep learning model to enable NIDS operation within modern networks. The model we propose is a combination of deep and shallow learning, capable of correctly analysing a wide-range of network trafﬁc. More speciﬁcally, we combine the power of stacking our proposed non-symmetric deep auto-encoder (NDAE) (deep-learning) and the accuracy and speed of Random"
+        }
+      ]
+    },
+    {
+      "paper_id": "PAPER_022",
+      "title": "Deep Learning for Anomaly Detection",
+      "best_vector_distance": 0.49264,
+      "retrieved_chunk_count": 2,
+      "evidence": [
+        {
+          "chunk_id": "PAPER_022_CHUNK_001",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.49264,
+          "text": "1 Deep Learning for Anomaly Detection: A Review GUANSONG PANG∗, University of Adelaide CHUNHUA SHEN, University of Adelaide LONGBING CAO, University of Technology Sydney ANTON VAN DEN HENGEL, University of Adelaide Anomaly detection, a.k.a. outlier detection or novelty detection, has been a lasting yet active research area in various research communities for several decades. There are still some unique problem complexities and challenges that require advanced approaches. In recent years, deep learning enabled anomaly detection, i.e., deep anomaly detection, has emerged as a critical direction. This paper surveys the research of deep anomaly detection with a comprehensive taxonomy, covering advancements in three high-level categories and 11 fine-grained categories of the methods. We review their key intuitions, objective functions, underlying assumptions, advantages and disadvantages, and discuss how they address the aforementioned challenges. We further discuss a set of possible future opportunities and new perspectives on addressing the challenges. ACM Reference Format: Guansong Pang, Chunhua Shen, Longbing Cao, and Anton van den Hengel. 2020. Deep Learning for Anomaly Detection: A Review. ACM Comput. Surv. 1, 1, Article 1 (January 2020), 36 pages. https://doi.org/10.1145/3439950 1 INTRODUCTION Anomaly detection, a.k.a. outlier detection or novelty detection, is referred to as the process of detecting data instances that significantly deviate from the majority of data instances. Anomaly detection has been an active research area for several decades, with early exploration dating back as far as to 1960s [52]. Due to the increasing demand and applications in broad domains, such as risk management, compliance, security, financial surveillance, health and medical risk, and AI safety, anomaly detection plays increasingly important roles, highlighted in various communities including data mining, machine learning, computer vision and statistics. In recent years, deep learning has shown tremendous capabilities in learning expressive representations of complex data such as high-dimensional data, temporal data, spatial data and graph data, pushing the boundaries of different learning tasks. Deep learning for anomaly detection, deep anomaly detection for short, aim at learning feature representations or anomaly scores via neural networks for the sake of anomaly detection. A large number of deep anomaly detection methods have been introduced, demonstrating significan"
+        },
+        {
+          "chunk_id": "PAPER_022_CHUNK_005",
+          "section_type": "unknown",
+          "original_heading": "",
+          "distance": 0.50824,
+          "text": "is identified as anomaly. Human experts can then look into and correct the bias. Providing such explanation can be as important as detection accuracy in some applications. However, most anomaly detection studies focus on detection accuracy only, ignoring the 1There have been some studies that refer the methods trained with purely normal training data to be unsupervised approach. However, this setting is different from the general sense of an unsupervised setting. To avoid unnecessary confusion, following [2, 28], these methods are referred to as semi-supervised methods hereafter. ACM Comput. Surv., Vol. 1, No. 1, Article 1. Publication date: January 2020. Deep Learning for Anomaly Detection: A Review 1:5 capability of providing explanation of the identified anomalies. To derive anomaly explanation from specific detection methods is still a largely unsolved problem, especially for complex models. Developing inherently interpretable anomaly detection models is also crucial, but it remains a main challenge to well balance the model’s interpretability and effectiveness. Deep methods enable end-to-end optimization of the whole anomaly detection pipeline, and they also enable the learning of representations specifically tailored for anomaly detection. These two capabilities are crucial to tackle the above six challenges, but traditional methods do not have. Particularly they help largely improve the utilization of labeled normal data or some labeled anomaly data regardless of the data type, reducing the need of large-scale labeled data as in fully- supervised settings (CH2, CH3, CH4, CH5). This subsequently results in more informed models and thus better recall rate (CH1). For the anomaly explanation challenge, although deep methods are often black-box models, they offer options to unify anomaly detection and explanation into single frameworks, resulting in more genuine explanation of the anomalies spotted by specific models (see Section 8.5). Deep methods also excel at learning intricate structures and relations from diverse types of data, such as high-dimensional data, image data, video data, graph data, etc. This capability is important to address various challenges, such as CH1, CH2, CH3, and CH5. Further, they offer many effective and easy-to-use network architectures and principled frameworks to seamlessly learn unified representations of heterogeneous data sources. This empowers the deep models to tackle some key challenges such as CH3 and CH5. Although t"
+        }
+      ]
+    }
+  ],
+  "related_paper_facts": [
+    {
+      "paper_id": "PAPER_039",
+      "title": "Edge Intelligence: Paving the Last Mile of Artificial Intelligence With Edge Computing",
+      "facts": {
+        "methods_mentioned": [],
+        "metrics_mentioned": [
+          "precision"
+        ],
+        "accuracy_values_found_percent": []
+      }
+    },
+    {
+      "paper_id": "PAPER_054",
+      "title": "Deep learning and computer vision in plant disease detection: a comprehensive review of techniques, models, and trends in precision agriculture",
+      "facts": {
+        "methods_mentioned": [
+          "cnn"
+        ],
+        "metrics_mentioned": [
+          "accuracy",
+          "precision",
+          "recall"
+        ],
+        "accuracy_values_found_percent": []
+      }
+    },
+    {
+      "paper_id": "PAPER_018",
+      "title": "Deep learning in agriculture: A survey",
+      "facts": {
+        "methods_mentioned": [
+          "vgg"
+        ],
+        "metrics_mentioned": [
+          "accuracy"
+        ],
+        "accuracy_values_found_percent": []
+      }
+    },
+    {
+      "paper_id": "PAPER_033",
+      "title": "A Deep Learning Approach to Network Intrusion Detection",
+      "facts": {
+        "methods_mentioned": [],
+        "metrics_mentioned": [
+          "accuracy"
+        ],
+        "accuracy_values_found_percent": []
+      }
+    },
+    {
+      "paper_id": "PAPER_022",
+      "title": "Deep Learning for Anomaly Detection",
+      "facts": {
+        "methods_mentioned": [],
+        "metrics_mentioned": [
+          "accuracy",
+          "recall"
+        ],
+        "accuracy_values_found_percent": []
+      }
+    }
+  ],
+  "llm_enabled": false,
+  "retrieval_method": "local MiniLM semantic embeddings and ChromaDB"
+}
