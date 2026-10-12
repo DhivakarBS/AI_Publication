@@ -23,44 +23,38 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 SECTION_PATTERNS = {
     "abstract": [
-        r"^\s*(?:abstract|summary)\b"
+        r"^\s*(?:abstract|summary)\s*[:.\-—]?\s*$"
     ],
     "introduction": [
-        r"^\s*(?:\d+[\.\s]+)?introduction\b",
-        r"^\s*i\.\s+introduction\b"
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:introduction)\s*[:.\-]?\s*$"
     ],
     "related_work": [
-        r"^\s*(?:\d+[\.\s]+)?(?:related\s+work|related\s+works|literature\s+review|literature\s+survey|background)\b",
-        r"^\s*ii\.\s+related\s+work\b"
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:related\s+work|related\s+works|existing\s+work|existing\s+works|literature\s+review|literature\s+survey|background|prior\s+work|previous\s+work)\s*[:.\-]?\s*$"
     ],
     "methodology": [
-        r"^\s*(?:\d+[\.\s]+)?(?:methodology|method|methods|proposed\s+method|proposed\s+approach|materials?\s+and\s+methods?|system\s+design|architecture|system\s+model)\b",
-        r"^\s*iii\.\s+(?:methodology|proposed\s+system)\b"
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:(?:the\s+)?proposed\s+(?:methodology|method|approach|system|architecture|model|framework)|methodology|methods|materials?\s+and\s+methods?|system\s+design|system\s+architecture|system\s+model)\s*[:.\-]?\s*$"
     ],
     "dataset": [
-        r"^\s*(?:\d+[\.\s]+)?(?:datasets?|data\s+collection|data\s+description|data\s+source|experimental\s+data)\b"
+        r"^\s*(?:\d+(?:\.\d+)*[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:datasets?|benchmark\s+datasets?|data\s+collection|data\s+description|data\s+source|experimental\s+data)\s*[:.\-]?\s*$"
     ],
     "experiments": [
-        r"^\s*(?:\d+[\.\s]+)?(?:experiments?|experimental\s+setup|implementation(?:\s+details)?|evaluations?)\b",
-        r"^\s*iv\.\s+(?:experimental\s+setup|experiments?)\b"
+        r"^\s*(?:\d+(?:\.\d+)*[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:experiments?|experimental\s+setup|experimental\s+evaluation|experimental\s+design|implementation(?:\s+details)?|evaluations?|performance\s+evaluation)\s*[:.\-]?\s*$"
     ],
     "results": [
-        r"^\s*(?:\d+[\.\s]+)?(?:results?|experimental\s+results?|results?\s+and\s+discussion|performance\s+analysis)\b",
-        r"^\s*v\.\s+(?:experimental\s+results?|results?)\b"
+        r"^\s*(?:\d+(?:\.\d+)*[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:results?|experimental\s+results?|results?\s+and\s+discussion|results?\s+&\s+discussion|evaluation\s+and\s+results|evaluation\s+&\s+results|performance\s+analysis|experimental\s+analysis)\s*[:.\-]?\s*$"
     ],
     "discussion": [
-        r"^\s*(?:\d+[\.\s]+)?discussion\b"
+        r"^\s*(?:\d+(?:\.\d+)*[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:discussions?|discussion\s+and\s+analysis)\s*[:.\-]?\s*$"
     ],
     "limitations": [
-        r"^\s*(?:\d+[\.\s]+)?(?:limitations?|limitations?\s+and\s+future\s+work)\b"
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:limitations?|limitations?\s+and\s+future\s+work)\s*[:.\-]?\s*$"
     ],
     "conclusion": [
-        r"^\s*(?:\d+[\.\s]+)?(?:conclusions?|conclusion\s+and\s+future\s+work|concluding\s+remarks)\b",
-        r"^\s*vi\.\s+conclusions?\b"
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:conclusions?|conclusions?\s+(?:and|&)\s+future\s+work|concluding\s+remarks|summary\s+(?:and|&)\s+conclusions?)\s*[:.\-]?\s*$"
     ],
     "references": [
-        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:references?|bibliography)\b",
-        r"\b(?:references?|bibliography)\s*\[1\]",
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:references?|bibliography)\s*[:.\-]?\s*$",
+        r"^\s*(?:\d+[\.\s]+|[IVXLCDM]+[\.\s]+)?(?:references?|bibliography)\s*\[1\]",
         r"^\s*\[?(?:references?|bibliography)\]?\s*$"
     ]
 }
@@ -264,7 +258,7 @@ STANDARD_DATASETS = [
 ]
 
 CUSTOM_DATASET_PATTERNS = [
-    r"(?:trained\s+with|trained\s+on|evaluated\s+on|dataset\s+(?:of|with|containing|consisting\s+of)|collected\s+a\s+dataset\s+of)\s+([a-zA-Z0-9\s,\-–—]+?(?:annotated\s+images?|images?|samples?|recordings?|records?|photos?|dataset))",
+    r"(?:trained\s+with|trained\s+on|evaluated\s+on|dataset\s+(?:of|with|containing|consisting\s+of)|collected\s+a\s+dataset\s+of)\s+([a-zA-Z0-9\s,\-–—]+?(?:annotated\s+images?|images?|samples?|recordings?|records?|photos?|datasets?))",
     r"\b([a-zA-Z0-9\s\-]+?annotated\s+images)\b"
 ]
 
@@ -385,80 +379,211 @@ def parse_paper_sections(
     for page_info in page_items:
         page_num = page_info.get("page", 1)
         raw_page_text = page_info.get("text", "")
-        cleaned_page_text = clean_text(raw_page_text)
+        if not raw_page_text.strip():
+            continue
 
-        # Break page into coherent sentences/paragraphs
-        paragraphs = [p.strip() for p in re.split(r"\n\s*\n+", raw_page_text) if p.strip()]
-        if not paragraphs:
-            paragraphs = [cleaned_page_text] if cleaned_page_text else []
+        raw_lines = raw_page_text.splitlines()
+        accumulated_lines = []
+        j = 0
 
-        for para in paragraphs:
-            para_clean = clean_text(para)
-            if not para_clean:
+        while j < len(raw_lines):
+            line = raw_lines[j].strip()
+            if not line:
+                j += 1
                 continue
 
-            # Check if this paragraph contains a section heading
-            first_line = para_clean.split(".")[0][:80].strip()
+            new_section = None
+            advance = 1
+
+            # 1. Check single line heading (e.g. '4. PROPOSED METHODOLOGY', 'REFERENCES')
             for sec_name, patterns in SECTION_PATTERNS.items():
-                matched = False
-                for pat in patterns:
-                    if re.match(pat, first_line, re.IGNORECASE) or re.match(pat, para_clean[:80], re.IGNORECASE):
-                        current_section = sec_name
-                        if sec_name in BIBLIOGRAPHY_SECTIONS:
-                            in_references = True
-                        else:
-                            in_references = False
-                        matched = True
-                        break
-                if matched:
+                if any(re.match(pat, line, re.IGNORECASE) for pat in patterns):
+                    new_section = sec_name
                     break
 
-            # If not yet flagged as references, check if references header starts within this paragraph
-            if not in_references:
-                ref_match = re.search(
-                    r"(?i)(?:^|\n|[.\s])(?:references?|bibliography)\s*(?:\[1\]|[:\-]|\n|$)",
-                    para_clean
-                )
-                if ref_match:
-                    split_idx = ref_match.start()
-                    prefix_text = para_clean[:split_idx].strip()
-                    ref_text = para_clean[split_idx:].strip()
+            # 2. Check two-line heading (e.g. line j: '4' or 'IV.', line j+1: 'PROPOSED METHODOLOGY')
+            if not new_section and re.match(r"^(?:[0-9]+(?:\.[0-9]+)*|[IVXLCDM]+)[\.\s]*$", line) and j + 1 < len(raw_lines):
+                next_line = raw_lines[j + 1].strip()
+                combo = f"{line} {next_line}"
+                for sec_name, patterns in SECTION_PATTERNS.items():
+                    if any(re.match(pat, combo, re.IGNORECASE) for pat in patterns):
+                        new_section = sec_name
+                        advance = 2
+                        break
 
-                    if prefix_text:
+            # 3. Check inline abstract at start of paper: 'Abstract—Network Intrusion...'
+            if not new_section and page_num == 1 and current_section == "unknown":
+                if re.match(r"^\s*(?:abstract|summary)\s*[:.\-—]\s*", line, re.IGNORECASE):
+                    new_section = "abstract"
+                    advance = 1
+                    line = re.sub(r"^\s*(?:abstract|summary)\s*[:.\-—]\s*", "", line, flags=re.IGNORECASE)
+
+            # 4. Handle section transition
+            if new_section:
+                if accumulated_lines:
+                    text_clean = clean_text(" ".join(accumulated_lines))
+                    if text_clean:
                         segments.append({
                             "page": page_num,
                             "section": current_section,
-                            "text": prefix_text
+                            "text": text_clean
                         })
+                    accumulated_lines = []
 
+                current_section = new_section
+                if new_section in BIBLIOGRAPHY_SECTIONS:
                     in_references = True
+                else:
+                    in_references = False
+
+                j += advance
+                if new_section == "abstract" and line:
+                    accumulated_lines.append(line)
+            else:
+                if in_references:
                     current_section = "references"
-                    segments.append({
-                        "page": page_num,
-                        "section": "references",
-                        "text": ref_text
-                    })
-                    continue
+                accumulated_lines.append(line)
+                j += 1
 
-            if in_references:
-                current_section = "references"
-
-            segments.append({
-                "page": page_num,
-                "section": current_section,
-                "text": para_clean
-            })
+        if accumulated_lines:
+            text_clean = clean_text(" ".join(accumulated_lines))
+            if text_clean:
+                segments.append({
+                    "page": page_num,
+                    "section": current_section,
+                    "text": text_clean
+                })
 
     return segments
 
 
 # ============================================================
-# 1. ALGORITHMS & VARIANTS EXTRACTION
+# 1. ALGORITHMS & VARIANTS EXTRACTION WITH USAGE CLASSIFICATION
 # ============================================================
 
-def extract_algorithms(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+USAGE_PROPOSED_METHOD = "proposed_method"
+USAGE_EXPERIMENT_OR_BASELINE = "experiment_or_baseline"
+USAGE_BACKGROUND_OR_RELATED_WORK = "background_or_related_work"
+USAGE_REFERENCES_ONLY = "references_only"
+USAGE_UNCERTAIN = "uncertain"
+
+
+def classify_algorithm_usage(
+    snippet: str,
+    section: str = "unknown",
+    full_sentence: Optional[str] = None,
+    paper_title: Optional[str] = None
+) -> str:
     """
-    Extract algorithm families and specific variants (e.g. YOLO vs YOLOv8n).
+    Classify how an algorithm is used based on contextual evidence and section metadata:
+    - 'proposed_method': explicitly identified as part of the paper's proposed method or architecture.
+    - 'experiment_or_baseline': explicitly used in experiments or as a baseline.
+    - 'background_or_related_work': mentioned in background or related work.
+    - 'references_only': appears only in bibliography/reference content.
+    - 'uncertain': available evidence does not establish its role.
+    """
+    sec = (section or "unknown").strip().lower()
+    if sec in BIBLIOGRAPHY_SECTIONS or sec in ("references", "bibliography", "works cited", "literature cited"):
+        return USAGE_REFERENCES_ONLY
+
+    text_to_check = (full_sentence or snippet or "").strip()
+    if not text_to_check:
+        return USAGE_UNCERTAIN
+
+    # References fallback in text (e.g. bracket citations, publication venues without prose)
+    if re.match(r"^\[\d+\]\s+[A-Z]", text_to_check) or re.search(r"\[\d+\]\s+[A-Z].*(?:in proc\.|proceedings|ieee|acm|vol\.|pp\.)", text_to_check, re.IGNORECASE):
+        return USAGE_REFERENCES_ONLY
+
+    lower = text_to_check.lower()
+
+    # Check for survey document context
+    is_survey_doc = False
+    if paper_title and re.search(r"\b(?:survey|review|overview)\b", paper_title, re.IGNORECASE):
+        is_survey_doc = True
+
+    # 1. Background / Related work attribution markers
+    has_prior_work = bool(re.search(
+        r"\b(?:developed by|proposed by|introduced by|created by|designed by)\s+(?:the same team|other researchers|[a-z]+\s+et al\.|[a-z]+(?:\s+and\s+[a-z]+)?\s*\[\d+\])\b"
+        r"|\b(?:[a-z]+\s+et al\.\s*\[\d+\]|[a-z]+\s+et al\.)\b"
+        r"|\b(?:previous (?:work|studies|research|methods|approaches)|prior (?:work|studies|research|methods)|earlier (?:work|studies|methods)|existing (?:work|studies|methods|literature)|recent (?:advances|research|studies)|in literature|in the literature|survey|surveys|overview)\b"
+        r"|\b(?:such as|for instance|for example|e\.g\.,?)\s+(?:[a-z0-9\-]+\s+)?(?:alphago|alphazero|deep learning|reinforcement learning|neural networks)\b",
+        lower
+    ))
+
+    # 2. Baseline / Experiment comparison markers
+    is_target_baseline = bool(re.search(
+        r"\b(?:against\s+(?:an?\s+)?|compared\s+(?:to|with)\s+(?:an?\s+)?|in\s+comparison\s+(?:to|with)\s+(?:an?\s+)?|benchmarked\s+against\s+(?:an?\s+)?)\b"
+        r"|\b(?:as\s+a\s+baseline|baseline\s+(?:model|method|algorithm|classifier|network|approach)|competing\s+(?:method|model|algorithm))\b"
+        r"|\b(?:used\s+as\s+(?:a\s+)?baseline|our\s+baseline)\b",
+        lower
+    ))
+    has_baseline = is_target_baseline or bool(re.search(
+        r"\b(?:baseline|baselines|control\s+(?:group|model)|competing\s+(?:methods|models|algorithms))\b",
+        lower
+    ))
+
+    # 3. Proposed method declaration markers
+    has_proposed = bool(re.search(
+        r"\b(?:we propose|we present|we introduce|we develop|we design|our proposed|proposed method|our method|our architecture|our model|our approach|in this paper,?\s+we|this paper proposes|this paper introduces|this paper presents)\b"
+        r"|\b(?:our\s+(?:novel\s+)?(?:algorithm|framework|technique|network|system|implementation))\b"
+        r"|\b(?:we detail the novel|we implement a novel)\b",
+        lower
+    ))
+
+    # Prioritization logic:
+    # A. If in related work or background section:
+    if sec in ("related_work", "background", "literature_review", "prior_work"):
+        if has_proposed and not has_prior_work and not is_target_baseline:
+            return USAGE_PROPOSED_METHOD
+        return USAGE_BACKGROUND_OR_RELATED_WORK
+
+    # B. If explicitly positioned as a baseline or comparison target:
+    if is_target_baseline:
+        return USAGE_EXPERIMENT_OR_BASELINE
+
+    # C. If baseline markers present:
+    if has_baseline and not (has_proposed and not has_prior_work and "our" in lower):
+        return USAGE_EXPERIMENT_OR_BASELINE
+
+    # D. If explicit prior work attribution is present without author proposing it:
+    if has_prior_work and not has_proposed:
+        return USAGE_BACKGROUND_OR_RELATED_WORK
+
+    # E. In a survey paper, algorithms default to background unless explicitly trained/benchmarked:
+    if is_survey_doc and not has_proposed:
+        if has_baseline or sec in ("experiments", "evaluation", "results"):
+            return USAGE_EXPERIMENT_OR_BASELINE
+        return USAGE_BACKGROUND_OR_RELATED_WORK
+
+    # F. If explicit proposed method declarations are present:
+    if has_proposed:
+        return USAGE_PROPOSED_METHOD
+
+    # F. If in methodology section:
+    if sec in ("methodology", "methods", "architecture", "proposed_method", "proposed_methodology", "proposed_approach"):
+        if not has_prior_work and not has_baseline:
+            return USAGE_PROPOSED_METHOD
+        elif has_baseline:
+            return USAGE_EXPERIMENT_OR_BASELINE
+        elif has_prior_work:
+            return USAGE_BACKGROUND_OR_RELATED_WORK
+
+    # G. If in experiments / results section:
+    if sec in ("experiments", "evaluation", "results", "setup", "benchmarks", "experimental_setup"):
+        if re.search(r"\b(?:we evaluate|we test|we train|experimental results|was evaluated|were evaluated|was trained|were trained|achieved an?|tested on|evaluated on)\b", lower):
+            return USAGE_EXPERIMENT_OR_BASELINE
+
+    return USAGE_UNCERTAIN
+
+
+def extract_algorithms(
+    segments: List[Dict[str, Any]],
+    paper_title: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    Extract algorithm families and specific variants (e.g. YOLO vs YOLOv8n)
+    with explicit usage classification (proposed_method, experiment_or_baseline,
+    background_or_related_work, references_only, uncertain).
     Preserves evidence, page number, and section name.
     """
     results = []
@@ -490,11 +615,18 @@ def extract_algorithms(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     if page_key not in seen_on_page:
                         seen_on_page.add(page_key)
                         snippet = extract_snippet(text, match.start(), match.end())
+                        usage = classify_algorithm_usage(
+                            snippet,
+                            section=section,
+                            full_sentence=snippet,
+                            paper_title=paper_title
+                        )
                         results.append({
                             "name": variant_name,
                             "family": family,
                             "variant": variant_name,
                             "category": category,
+                            "usage": usage,
                             "evidence": snippet,
                             "page": page,
                             "section": section
@@ -509,11 +641,18 @@ def extract_algorithms(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 if page_key not in seen_on_page:
                     seen_on_page.add(page_key)
                     snippet = extract_snippet(text, match.start(), match.end())
+                    usage = classify_algorithm_usage(
+                        snippet,
+                        section=section,
+                        full_sentence=snippet,
+                        paper_title=paper_title
+                    )
                     results.append({
                         "name": family,
                         "family": family,
                         "variant": None,
                         "category": category,
+                        "usage": usage,
                         "evidence": snippet,
                         "page": page,
                         "section": section
@@ -559,8 +698,35 @@ def extract_techniques(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 # ============================================================
-# 3. DATASETS & CUSTOM DESCRIPTIONS
-# ============================================================
+def is_valid_custom_dataset(desc: str) -> bool:
+    """
+    Validate that an extracted custom dataset description represents a genuine
+    named or specific dataset description rather than a generic quantifier phrase
+    (e.g., 'a limited amount of datasets', 'several datasets', 'multiple datasets',
+    'various datasets', 'a few datasets').
+    """
+    if not desc:
+        return False
+    norm = re.sub(r"\s+", " ", desc.strip().lower())
+
+    # 1. Reject bare generic nouns
+    if norm in {"dataset", "datasets", "image", "images", "sample", "samples", "record", "records"}:
+        return False
+
+    # 2. Reject quantifier / generic phrases referring to unspecified datasets or generic data
+    generic_dataset_patterns = [
+        r"^(?:a\s+)?(?:limited|small|large|considerable)\s+(?:amount|number)\s+of\s+(?:datasets?|images?|samples?|records?)$",
+        r"^(?:several|multiple|various|a\s+few|different|numerous|many|diverse)\s+(?:datasets?|images?|samples?|records?)$",
+        r"^(?:one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:datasets?|images?|samples?|records?)$",
+        r"^(?:the|this|that|these|those|our|their|each|every|some|any|all|both)\s+(?:datasets?|images?|samples?|records?)$",
+        r"^(?:new|existing|available|public|private|custom|synthetic|standard|benchmark|unseen)\s+datasets?$",
+    ]
+    for pattern in generic_dataset_patterns:
+        if re.match(pattern, norm, re.IGNORECASE):
+            return False
+
+    return True
+
 
 def extract_datasets(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
@@ -599,6 +765,8 @@ def extract_datasets(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 # Clean up punctuation and stop words
                 desc = re.sub(r"^[—\-,\.]\s*", "", desc).strip()
                 if len(desc) < 6 or len(desc) > 120:
+                    continue
+                if not is_valid_custom_dataset(desc):
                     continue
 
                 key = desc.lower()
@@ -791,6 +959,51 @@ def is_table_scrap_number(sent_str: str, match_start: int, val_raw: str, unit_ra
     except (ValueError, TypeError):
         pass
 
+def is_metric_formula_or_equation(
+    sent_str: str,
+    match: re.Match,
+    val_raw: str,
+    canonical: str,
+    unit_raw: Optional[str]
+) -> bool:
+    """
+    Detect whether a matched metric number is part of a formula definition or equation constant
+    rather than an actual experimental result.
+    e.g. 'F-score = 2 · Precision · Recall / (Precision + Recall) (10)'
+    """
+    # 1. Operators immediately following the number: ·, *, ×, /, +, \cdot, \times, etc.
+    post_span = sent_str[match.end():min(len(sent_str), match.end() + 60)]
+    if re.match(r"^\s*(?:[·*×\u00b7\u22c5/+\\]|\b(?:times|\*|/)\b)", post_span):
+        return True
+
+    # 2. Number is immediately followed by variable names or metric names forming algebraic terms
+    # e.g., '2 Precision', '2 P', '2 (Precision', '2 · Precision'
+    if re.match(r"^\s*(?:[·*×\u00b7\u22c5/+\\]\s*)?(?:\(?\s*(?:Precision|Recall|Accuracy|TP|FP|TN|FN|P|R)\b)", post_span, re.IGNORECASE):
+        return True
+
+    # 3. Whole expression contains algebraic division or fraction with metric definitions
+    # e.g. '... / (Precision + Recall)' or 'TP / (TP + FP)' or '(TP + TN) / ...'
+    if re.search(r"/\s*\(?(?:Precision|Recall|Accuracy|TP|FP|TN|FN)", sent_str, re.IGNORECASE):
+        return True
+    if re.search(r"\b(?:TP|FP|TN|FN)\s*[\/+\*·×\u00b7\u22c5]", sent_str, re.IGNORECASE):
+        return True
+
+    # 4. Sentence contains explicit formula/equation keywords and definition markers
+    formula_cues = r"\b(?:defined\s+as|formula|formulated\s+as|equation|harmonic\s+mean\s+of|measures?\s+the\s+(?:proportion|harmonic|ratio|number)\s+of)\b"
+    if re.search(formula_cues, sent_str, re.IGNORECASE):
+        # If there's an equation structure like '= ... /' or '= 2 ...'
+        if re.search(r"=\s*(?:[0-9]+|[A-Za-z]+)\s*(?:[·*×\u00b7\u22c5/+\\]|[A-Za-z])", sent_str):
+            return True
+
+    # 5. Non-percentage integer constants like 2 in F-score definition:
+    try:
+        val_f = float(val_raw)
+        if unit_raw is None and canonical in ("f1-score", "precision", "recall", "accuracy", "iou", "miou", "map", "auc", "roc-auc"):
+            if val_f == 2.0 and re.search(r"(?:Precision|Recall)", sent_str, re.IGNORECASE):
+                return True
+    except (ValueError, TypeError):
+        pass
+
     return False
 
 
@@ -926,8 +1139,10 @@ def extract_metrics_and_results(segments: List[Dict[str, Any]]) -> List[Dict[str
 
                 canonical = CANONICAL_METRIC_MAP.get(metric_raw.lower(), metric_raw)
 
-                # Check negation guard
+                # Check negation and formula definition guards
                 if is_metric_negated(sent_str, metric_raw, match.start(), match.end()):
+                    continue
+                if is_metric_formula_or_equation(sent_str, match, val_raw, canonical, unit_raw):
                     continue
 
                 snippet = extract_snippet(sent_str, match.start(), match.end(), window=80)
@@ -969,10 +1184,12 @@ def extract_metrics_and_results(segments: List[Dict[str, Any]]) -> List[Dict[str
 
                 canonical = CANONICAL_METRIC_MAP.get(metric_raw.lower(), metric_raw)
 
-                # Check negation and table scrap guards
+                # Check negation, table scrap, and formula definition guards
                 if is_metric_negated(sent_str, metric_raw, match.start(), match.end()):
                     continue
                 if is_table_scrap_number(sent_str, match.start(), val_raw, unit_raw, canonical):
+                    continue
+                if is_metric_formula_or_equation(sent_str, match, val_raw, canonical, unit_raw):
                     continue
 
                 snippet = extract_snippet(sent_str, match.start(), match.end(), window=80)
@@ -1232,6 +1449,8 @@ def deduplicate_algorithms(algorithms: List[Dict[str, Any]]) -> List[Dict[str, A
             c["pages"] = [item["page"]] if item.get("page") is not None else []
             c["sections"] = [item["section"]] if item.get("section") else []
             c["all_evidence"] = [item["evidence"]] if item.get("evidence") else []
+            c["all_usages"] = [item.get("usage", USAGE_UNCERTAIN)]
+            c["usage"] = item.get("usage", USAGE_UNCERTAIN)
             grouped[key] = c
         else:
             e = grouped[key]
@@ -1242,8 +1461,27 @@ def deduplicate_algorithms(algorithms: List[Dict[str, Any]]) -> List[Dict[str, A
                 e["sections"].append(item["section"])
             if item.get("evidence") and item["evidence"] not in e["all_evidence"]:
                 e["all_evidence"].append(item["evidence"])
-                if len(item["evidence"]) > len(e.get("evidence", "")):
+
+            u = item.get("usage", USAGE_UNCERTAIN)
+            if u not in e["all_usages"]:
+                e["all_usages"].append(u)
+
+            # Resolve usage priority: proposed_method > experiment_or_baseline > background_or_related_work > references_only > uncertain
+            priority_order = [
+                USAGE_PROPOSED_METHOD,
+                USAGE_EXPERIMENT_OR_BASELINE,
+                USAGE_BACKGROUND_OR_RELATED_WORK,
+                USAGE_REFERENCES_ONLY,
+                USAGE_UNCERTAIN
+            ]
+            current_priority = priority_order.index(e["usage"]) if e["usage"] in priority_order else 99
+            new_priority = priority_order.index(u) if u in priority_order else 99
+            if new_priority < current_priority:
+                e["usage"] = u
+                if item.get("evidence"):
                     e["evidence"] = item["evidence"]
+            elif new_priority == current_priority and len(item.get("evidence", "")) > len(e.get("evidence", "")):
+                e["evidence"] = item["evidence"]
     return list(grouped.values())
 
 
@@ -1380,7 +1618,8 @@ def deduplicate_metrics_and_results(metrics: List[Dict[str, Any]]) -> List[Dict[
 
 def extract_technical_facts(
     pages: Optional[List[Dict[str, Any]]] = None,
-    full_text: Optional[str] = None
+    full_text: Optional[str] = None,
+    paper_title: Optional[str] = None
 ) -> Dict[str, Any]:
     """
     Main entry point for deterministic, evidence-backed technical fact extraction.
@@ -1432,8 +1671,15 @@ def extract_technical_facts(
 
     segments = parse_paper_sections(pages=pages, full_text=full_text)
 
+    detected_title = paper_title
+    if not detected_title and segments:
+        first_text = segments[0].get("text", "")[:300]
+        m_survey = re.search(r"([^\.\n]+(?:\b(?:survey|review|overview)\b)[^\.\n]*)", first_text, re.IGNORECASE)
+        if m_survey:
+            detected_title = m_survey.group(1).strip()
+
     # 1. Extraction passes with deduplication
-    algorithms = deduplicate_algorithms(extract_algorithms(segments))
+    algorithms = deduplicate_algorithms(extract_algorithms(segments, paper_title=detected_title))
     techniques = deduplicate_techniques(extract_techniques(segments))
     datasets = deduplicate_datasets(extract_datasets(segments))
     experimental_setup = deduplicate_experimental_setup(extract_experimental_setup(segments))
