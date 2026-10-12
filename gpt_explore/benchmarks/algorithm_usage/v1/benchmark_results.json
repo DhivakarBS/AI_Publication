@@ -1,0 +1,727 @@
+{
+  "benchmark_metadata": {
+    "name": "ResearchAI Algorithm Usage Classification Benchmark",
+    "version": "v1.1",
+    "dataset_path": "benchmarks\\algorithm_usage\\v1\\gold_dataset.jsonl",
+    "num_verified_examples": 73,
+    "num_total_examples": 75,
+    "num_unresolved_examples": 2,
+    "unresolved_example_ids": [
+      "ALGO_BENCH_068",
+      "ALGO_BENCH_073"
+    ],
+    "shared_verified_example_ids": [
+      "ALGO_BENCH_001",
+      "ALGO_BENCH_002",
+      "ALGO_BENCH_003",
+      "ALGO_BENCH_004",
+      "ALGO_BENCH_005",
+      "ALGO_BENCH_006",
+      "ALGO_BENCH_007",
+      "ALGO_BENCH_008",
+      "ALGO_BENCH_009",
+      "ALGO_BENCH_010",
+      "ALGO_BENCH_011",
+      "ALGO_BENCH_012",
+      "ALGO_BENCH_013",
+      "ALGO_BENCH_014",
+      "ALGO_BENCH_015",
+      "ALGO_BENCH_016",
+      "ALGO_BENCH_017",
+      "ALGO_BENCH_018",
+      "ALGO_BENCH_019",
+      "ALGO_BENCH_020",
+      "ALGO_BENCH_021",
+      "ALGO_BENCH_022",
+      "ALGO_BENCH_023",
+      "ALGO_BENCH_024",
+      "ALGO_BENCH_025",
+      "ALGO_BENCH_026",
+      "ALGO_BENCH_027",
+      "ALGO_BENCH_028",
+      "ALGO_BENCH_029",
+      "ALGO_BENCH_030",
+      "ALGO_BENCH_031",
+      "ALGO_BENCH_032",
+      "ALGO_BENCH_033",
+      "ALGO_BENCH_034",
+      "ALGO_BENCH_035",
+      "ALGO_BENCH_036",
+      "ALGO_BENCH_037",
+      "ALGO_BENCH_038",
+      "ALGO_BENCH_039",
+      "ALGO_BENCH_040",
+      "ALGO_BENCH_041",
+      "ALGO_BENCH_042",
+      "ALGO_BENCH_043",
+      "ALGO_BENCH_044",
+      "ALGO_BENCH_045",
+      "ALGO_BENCH_046",
+      "ALGO_BENCH_047",
+      "ALGO_BENCH_048",
+      "ALGO_BENCH_049",
+      "ALGO_BENCH_050",
+      "ALGO_BENCH_051",
+      "ALGO_BENCH_052",
+      "ALGO_BENCH_053",
+      "ALGO_BENCH_054",
+      "ALGO_BENCH_055",
+      "ALGO_BENCH_056",
+      "ALGO_BENCH_057",
+      "ALGO_BENCH_058",
+      "ALGO_BENCH_059",
+      "ALGO_BENCH_060",
+      "ALGO_BENCH_061",
+      "ALGO_BENCH_062",
+      "ALGO_BENCH_063",
+      "ALGO_BENCH_064",
+      "ALGO_BENCH_065",
+      "ALGO_BENCH_066",
+      "ALGO_BENCH_067",
+      "ALGO_BENCH_069",
+      "ALGO_BENCH_070",
+      "ALGO_BENCH_071",
+      "ALGO_BENCH_072",
+      "ALGO_BENCH_074",
+      "ALGO_BENCH_075"
+    ],
+    "classes": [
+      "proposed_method",
+      "experiment_or_baseline",
+      "background_or_related_work",
+      "references_only",
+      "uncertain"
+    ],
+    "active_classes": [
+      "experiment_or_baseline",
+      "proposed_method"
+    ],
+    "non_active_classes": [
+      "uncertain",
+      "background_or_related_work",
+      "references_only"
+    ],
+    "timestamp": "2026-10-12T18:07:19Z",
+    "environment": {
+      "os": "Windows-11-10.0.26200-SP0",
+      "python": "3.12.10"
+    }
+  },
+  "deterministic_classifier": {
+    "status": "completed",
+    "model_identifier": "deterministic_rule_based_classifier",
+    "metrics": {
+      "overall": {
+        "total_examples": 73,
+        "correct": 46,
+        "accuracy": 0.6301,
+        "macro_precision": 0.7367,
+        "macro_recall": 0.6319,
+        "macro_f1": 0.6237,
+        "weighted_f1": 0.6579,
+        "active_method_false_positive_rate": 0.0698,
+        "active_method_fpr_denominator": 43,
+        "false_active_claims_count": 3,
+        "missed_active_methods_count": 16,
+        "uncertain_forced_count": 3
+      },
+      "per_class": {
+        "proposed_method": {
+          "precision": 0.75,
+          "recall": 0.6429,
+          "f1_score": 0.6923,
+          "support": 14,
+          "predicted_count": 12
+        },
+        "experiment_or_baseline": {
+          "precision": 1.0,
+          "recall": 0.3125,
+          "f1_score": 0.4762,
+          "support": 16,
+          "predicted_count": 5
+        },
+        "background_or_related_work": {
+          "precision": 0.7333,
+          "recall": 0.5789,
+          "f1_score": 0.6471,
+          "support": 19,
+          "predicted_count": 15
+        },
+        "references_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "support": 16,
+          "predicted_count": 16
+        },
+        "uncertain": {
+          "precision": 0.2,
+          "recall": 0.625,
+          "f1_score": 0.303,
+          "support": 8,
+          "predicted_count": 25
+        }
+      },
+      "confusion_matrix": {
+        "proposed_method": {
+          "proposed_method": 9,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 0,
+          "references_only": 0,
+          "uncertain": 5
+        },
+        "experiment_or_baseline": {
+          "proposed_method": 0,
+          "experiment_or_baseline": 5,
+          "background_or_related_work": 3,
+          "references_only": 0,
+          "uncertain": 8
+        },
+        "background_or_related_work": {
+          "proposed_method": 1,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 11,
+          "references_only": 0,
+          "uncertain": 7
+        },
+        "references_only": {
+          "proposed_method": 0,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 0,
+          "references_only": 16,
+          "uncertain": 0
+        },
+        "uncertain": {
+          "proposed_method": 2,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 1,
+          "references_only": 0,
+          "uncertain": 5
+        }
+      },
+      "errors": {
+        "false_active_claims": [
+          {
+            "example_id": "ALGO_BENCH_037",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "U-Net",
+            "gold": "background_or_related_work",
+            "pred": "proposed_method",
+            "evidence": "The blueprint parameters represent fundamental design choices (such as using a plain U-Net-like architecture template) as well as hyperparameters for which a robust default value can simply be picked (for example loss function, training schedule and data augmentation).",
+            "section": "Methodology"
+          },
+          {
+            "example_id": "ALGO_BENCH_067",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Neural Network",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "Instead of a handcrafted evaluation function and move ordering heuristics, a deep neural network evaluates positions and outputs move probabilities.",
+            "section": "Methodology"
+          },
+          {
+            "example_id": "ALGO_BENCH_069",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "SGD",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "– As for the opimizer, stochastic gradient descent with a high initial learning rate (0.01) and nesterov momentum (0.99) is used.",
+            "section": "Methodology"
+          }
+        ],
+        "missed_active_methods": [
+          {
+            "example_id": "ALGO_BENCH_002",
+            "paper_id": "PAPER_033",
+            "algorithm_name": "NDAE",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "This paper offers the following novel contributions: • A new NDAE technique for unsupervised feature learning, which unlike typical auto-encoder ap- proaches provides non-symmetric data dimensional- ity reduction.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_003",
+            "paper_id": "PAPER_033",
+            "algorithm_name": "Random Forest",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "The weights are passed to another RBM to produce a DBN.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_011",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "In contrast to algorithmic approaches for method conﬁguration that are formulated as a task-speciﬁc optimization problem, nnU-Net readily executes systematic rules to generate deep learning methods for previously unseen datasets without need for further optimization.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_012",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "2 Results nnU-Net is a deep learning framework that enables 3D semantic segmentation in many biomedical imaging applications, without requiring the design of respective specialised solutions.",
+            "section": "Results"
+          },
+          {
+            "example_id": "ALGO_BENCH_013",
+            "paper_id": "PAPER_013",
+            "algorithm_name": "Decision Tree",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "Classification algorithms in machine learning contain several algorithms, and in this work, the paper focused on the decision tree algorithm in general.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_018",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "AlphaZero",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "By contrast, the AlphaGo Zero program recently achieved superhuman performance in the game of Go by reinforcement learning from self- play.",
+            "section": "Abstract"
+          },
+          {
+            "example_id": "ALGO_BENCH_019",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Stockfish",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Starting from random play and given no domain knowledge except the game rules, AlphaZero convincingly defeated a world champion program in the games of chess and shogi (Japanese chess) as well as Go.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_020",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Elmo",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "The strongest shogi programs, such as the 2017 Computer Shogi Association (CSA) world-champion Elmo, have only recently defeated human champions (15).",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_021",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "AlphaGo",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Recently, the AlphaGo Zero algorithm achieved superhuman performance in the game of Go, by representing Go knowledge using deep convolutional neural networks (7,8), trained solely by reinforcement learning from games 1 of self-play (9).",
+            "section": "Background / Baseline"
+          },
+          {
+            "example_id": "ALGO_BENCH_022",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Without manual tuning, nnU-Net surpasses most specialised deep learning pipelines in 19 public international competitions and sets a new state of the art in the majority of the 49 tasks.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_024",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "Figure 3 provides an overview of the quantitative results achieved by nnU-Net and the competing challenge teams across all 49 segmentation tasks.",
+            "section": "Results"
+          },
+          {
+            "example_id": "ALGO_BENCH_025",
+            "paper_id": "PAPER_067",
+            "algorithm_name": "DQN",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "For increased stability, two networks are used where the parameters of the target network for DQN are ﬁxed for a number of iterations while updating the parameters of the online network.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_026",
+            "paper_id": "PAPER_081",
+            "algorithm_name": "DQN",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "DQN architecture with the loss function described by L(β) = E[(r+ γ maxa′ Q(s′, a′|β′) −Q(s, a|β))2] where β and β′ are parameters of the estimation and target deep neural networks respectively.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_027",
+            "paper_id": "PAPER_081",
+            "algorithm_name": "SARSA",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Malialis and Kudenko [113], [114] initially introduced the multiagent router throttling method based on the SARSA algorithm [115] to address the DDoS attacks by learning multiple agents to rate-limit or throttle trafﬁc towards a victim server.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_028",
+            "paper_id": "PAPER_013",
+            "algorithm_name": "Decision Tree",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Table I shown comparison between the frequently used algorithms for the decision tree [51].",
+            "section": "Comparison"
+          },
+          {
+            "example_id": "ALGO_BENCH_029",
+            "paper_id": "PAPER_021",
+            "algorithm_name": "SMOTE",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "[44] introduced the Synthetic Minority Over-sampling Technique (SMOTE), a method that produces artificial minority samples by interpolating between existing minority samples and their nearest minority neighbors.",
+            "section": "Survey / Baseline"
+          }
+        ],
+        "uncertain_forced": [
+          {
+            "example_id": "ALGO_BENCH_067",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Neural Network",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "Instead of a handcrafted evaluation function and move ordering heuristics, a deep neural network evaluates positions and outputs move probabilities."
+          },
+          {
+            "example_id": "ALGO_BENCH_069",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "SGD",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "– As for the opimizer, stochastic gradient descent with a high initial learning rate (0.01) and nesterov momentum (0.99) is used."
+          },
+          {
+            "example_id": "ALGO_BENCH_070",
+            "paper_id": "PAPER_067",
+            "algorithm_name": "Reinforcement Learning",
+            "gold": "uncertain",
+            "pred": "background_or_related_work",
+            "evidence": "ML algorithms are often classiﬁed under one of three broad categories: supervised learning, unsupervised learning and reinforcement learning (RL)."
+          }
+        ]
+      },
+      "runtime": {
+        "total_inference_time_sec": 0.006153,
+        "mean_inference_time_per_example_ms": 0.0843,
+        "device": "cpu"
+      }
+    },
+    "traceability_full_dataset_metrics": {
+      "overall": {
+        "total_examples": 75,
+        "correct": 48,
+        "accuracy": 0.64,
+        "macro_precision": 0.7485,
+        "macro_recall": 0.6469,
+        "macro_f1": 0.6388,
+        "weighted_f1": 0.6585,
+        "active_method_false_positive_rate": 0.0667,
+        "active_method_fpr_denominator": 45,
+        "false_active_claims_count": 3,
+        "missed_active_methods_count": 16,
+        "uncertain_forced_count": 3
+      },
+      "per_class": {
+        "proposed_method": {
+          "precision": 0.75,
+          "recall": 0.6429,
+          "f1_score": 0.6923,
+          "support": 14,
+          "predicted_count": 12
+        },
+        "experiment_or_baseline": {
+          "precision": 1.0,
+          "recall": 0.3125,
+          "f1_score": 0.4762,
+          "support": 16,
+          "predicted_count": 5
+        },
+        "background_or_related_work": {
+          "precision": 0.7333,
+          "recall": 0.5789,
+          "f1_score": 0.6471,
+          "support": 19,
+          "predicted_count": 15
+        },
+        "references_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "support": 16,
+          "predicted_count": 16
+        },
+        "uncertain": {
+          "precision": 0.2593,
+          "recall": 0.7,
+          "f1_score": 0.3784,
+          "support": 10,
+          "predicted_count": 27
+        }
+      },
+      "confusion_matrix": {
+        "proposed_method": {
+          "proposed_method": 9,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 0,
+          "references_only": 0,
+          "uncertain": 5
+        },
+        "experiment_or_baseline": {
+          "proposed_method": 0,
+          "experiment_or_baseline": 5,
+          "background_or_related_work": 3,
+          "references_only": 0,
+          "uncertain": 8
+        },
+        "background_or_related_work": {
+          "proposed_method": 1,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 11,
+          "references_only": 0,
+          "uncertain": 7
+        },
+        "references_only": {
+          "proposed_method": 0,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 0,
+          "references_only": 16,
+          "uncertain": 0
+        },
+        "uncertain": {
+          "proposed_method": 2,
+          "experiment_or_baseline": 0,
+          "background_or_related_work": 1,
+          "references_only": 0,
+          "uncertain": 7
+        }
+      },
+      "errors": {
+        "false_active_claims": [
+          {
+            "example_id": "ALGO_BENCH_037",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "U-Net",
+            "gold": "background_or_related_work",
+            "pred": "proposed_method",
+            "evidence": "The blueprint parameters represent fundamental design choices (such as using a plain U-Net-like architecture template) as well as hyperparameters for which a robust default value can simply be picked (for example loss function, training schedule and data augmentation).",
+            "section": "Methodology"
+          },
+          {
+            "example_id": "ALGO_BENCH_067",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Neural Network",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "Instead of a handcrafted evaluation function and move ordering heuristics, a deep neural network evaluates positions and outputs move probabilities.",
+            "section": "Methodology"
+          },
+          {
+            "example_id": "ALGO_BENCH_069",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "SGD",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "– As for the opimizer, stochastic gradient descent with a high initial learning rate (0.01) and nesterov momentum (0.99) is used.",
+            "section": "Methodology"
+          }
+        ],
+        "missed_active_methods": [
+          {
+            "example_id": "ALGO_BENCH_002",
+            "paper_id": "PAPER_033",
+            "algorithm_name": "NDAE",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "This paper offers the following novel contributions: • A new NDAE technique for unsupervised feature learning, which unlike typical auto-encoder ap- proaches provides non-symmetric data dimensional- ity reduction.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_003",
+            "paper_id": "PAPER_033",
+            "algorithm_name": "Random Forest",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "The weights are passed to another RBM to produce a DBN.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_011",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "In contrast to algorithmic approaches for method conﬁguration that are formulated as a task-speciﬁc optimization problem, nnU-Net readily executes systematic rules to generate deep learning methods for previously unseen datasets without need for further optimization.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_012",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "2 Results nnU-Net is a deep learning framework that enables 3D semantic segmentation in many biomedical imaging applications, without requiring the design of respective specialised solutions.",
+            "section": "Results"
+          },
+          {
+            "example_id": "ALGO_BENCH_013",
+            "paper_id": "PAPER_013",
+            "algorithm_name": "Decision Tree",
+            "gold": "proposed_method",
+            "pred": "uncertain",
+            "evidence": "Classification algorithms in machine learning contain several algorithms, and in this work, the paper focused on the decision tree algorithm in general.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_018",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "AlphaZero",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "By contrast, the AlphaGo Zero program recently achieved superhuman performance in the game of Go by reinforcement learning from self- play.",
+            "section": "Abstract"
+          },
+          {
+            "example_id": "ALGO_BENCH_019",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Stockfish",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Starting from random play and given no domain knowledge except the game rules, AlphaZero convincingly defeated a world champion program in the games of chess and shogi (Japanese chess) as well as Go.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_020",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Elmo",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "The strongest shogi programs, such as the 2017 Computer Shogi Association (CSA) world-champion Elmo, have only recently defeated human champions (15).",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_021",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "AlphaGo",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Recently, the AlphaGo Zero algorithm achieved superhuman performance in the game of Go, by representing Go knowledge using deep convolutional neural networks (7,8), trained solely by reinforcement learning from games 1 of self-play (9).",
+            "section": "Background / Baseline"
+          },
+          {
+            "example_id": "ALGO_BENCH_022",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Without manual tuning, nnU-Net surpasses most specialised deep learning pipelines in 19 public international competitions and sets a new state of the art in the majority of the 49 tasks.",
+            "section": "Introduction"
+          },
+          {
+            "example_id": "ALGO_BENCH_024",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "nnU-Net",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "Figure 3 provides an overview of the quantitative results achieved by nnU-Net and the competing challenge teams across all 49 segmentation tasks.",
+            "section": "Results"
+          },
+          {
+            "example_id": "ALGO_BENCH_025",
+            "paper_id": "PAPER_067",
+            "algorithm_name": "DQN",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "For increased stability, two networks are used where the parameters of the target network for DQN are ﬁxed for a number of iterations while updating the parameters of the online network.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_026",
+            "paper_id": "PAPER_081",
+            "algorithm_name": "DQN",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "DQN architecture with the loss function described by L(β) = E[(r+ γ maxa′ Q(s′, a′|β′) −Q(s, a|β))2] where β and β′ are parameters of the estimation and target deep neural networks respectively.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_027",
+            "paper_id": "PAPER_081",
+            "algorithm_name": "SARSA",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Malialis and Kudenko [113], [114] initially introduced the multiagent router throttling method based on the SARSA algorithm [115] to address the DDoS attacks by learning multiple agents to rate-limit or throttle trafﬁc towards a victim server.",
+            "section": "Survey Body"
+          },
+          {
+            "example_id": "ALGO_BENCH_028",
+            "paper_id": "PAPER_013",
+            "algorithm_name": "Decision Tree",
+            "gold": "experiment_or_baseline",
+            "pred": "uncertain",
+            "evidence": "Table I shown comparison between the frequently used algorithms for the decision tree [51].",
+            "section": "Comparison"
+          },
+          {
+            "example_id": "ALGO_BENCH_029",
+            "paper_id": "PAPER_021",
+            "algorithm_name": "SMOTE",
+            "gold": "experiment_or_baseline",
+            "pred": "background_or_related_work",
+            "evidence": "[44] introduced the Synthetic Minority Over-sampling Technique (SMOTE), a method that produces artificial minority samples by interpolating between existing minority samples and their nearest minority neighbors.",
+            "section": "Survey / Baseline"
+          }
+        ],
+        "uncertain_forced": [
+          {
+            "example_id": "ALGO_BENCH_067",
+            "paper_id": "PAPER_068",
+            "algorithm_name": "Neural Network",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "Instead of a handcrafted evaluation function and move ordering heuristics, a deep neural network evaluates positions and outputs move probabilities."
+          },
+          {
+            "example_id": "ALGO_BENCH_069",
+            "paper_id": "PAPER_019",
+            "algorithm_name": "SGD",
+            "gold": "uncertain",
+            "pred": "proposed_method",
+            "evidence": "– As for the opimizer, stochastic gradient descent with a high initial learning rate (0.01) and nesterov momentum (0.99) is used."
+          },
+          {
+            "example_id": "ALGO_BENCH_070",
+            "paper_id": "PAPER_067",
+            "algorithm_name": "Reinforcement Learning",
+            "gold": "uncertain",
+            "pred": "background_or_related_work",
+            "evidence": "ML algorithms are often classiﬁed under one of three broad categories: supervised learning, unsupervised learning and reinforcement learning (RL)."
+          }
+        ]
+      }
+    }
+  },
+  "pretrained_nli_classifier": {
+    "status": "skipped",
+    "model_identifier": "cross-encoder/nli-MiniLM2-L6-H768",
+    "availability_notes": "Explicitly skipped via --skip-nli",
+    "metrics": null
+  },
+  "unresolved_records": [
+    {
+      "example_id": "ALGO_BENCH_068",
+      "paper_id": "PAPER_019",
+      "algorithm_name": "CNN",
+      "reason": "Algorithm acronym 'CNN' is completely absent from PAPER_019; no genuine verbatim sentence exists.",
+      "verification_status": "unresolved"
+    },
+    {
+      "example_id": "ALGO_BENCH_073",
+      "paper_id": "PAPER_081",
+      "algorithm_name": "Autoencoder",
+      "reason": "Algorithm 'Autoencoder' is completely absent from PAPER_081; no genuine verbatim sentence exists.",
+      "verification_status": "unresolved"
+    }
+  ]
+}
