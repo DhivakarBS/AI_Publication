@@ -7,11 +7,29 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
+from typing import Optional, Dict, Any, List
 
 import pymupdf
-import chromadb
-from sentence_transformers import SentenceTransformer
-from openai import OpenAI
+
+try:
+    import chromadb
+except ImportError:
+    chromadb = None
+
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
+
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
+
+try:
+    from technical_extractor import extract_technical_facts
+except ImportError:
+    from scripts.technical_extractor import extract_technical_facts
 
 
 # ============================================================
@@ -196,18 +214,69 @@ def call_llm_json(client, instructions, input_data):
     return json.loads(output)
 
 
+def summarize_facts_for_llm(technical_facts: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    """Create a clean, grounded summary of deterministic facts for LLM prompts."""
+    if not technical_facts:
+        return {}
+    return {
+        "algorithms": [
+            {
+                "name": alg.get("name"),
+                "family": alg.get("family"),
+                "variant": alg.get("variant"),
+                "category": alg.get("category"),
+                "pages": alg.get("pages", [alg.get("page")]),
+            }
+            for alg in technical_facts.get("algorithms", [])
+        ],
+        "datasets": [
+            {
+                "name": d.get("name"),
+                "description": d.get("description"),
+                "pages": d.get("pages", [d.get("page")]),
+            }
+            for d in technical_facts.get("datasets", [])
+        ],
+        "metrics_and_results": [
+            {
+                "metric_name": m.get("metric_name"),
+                "raw_value": m.get("raw_value"),
+                "unit": m.get("unit"),
+                "attribution": m.get("attribution", "uncertain"),
+                "status": m.get("status"),
+                "evidence": m.get("raw_text"),
+                "pages": m.get("pages", [m.get("page")]),
+            }
+            for m in technical_facts.get("metrics_and_results", [])
+            if m.get("status") == "confirmed"
+        ],
+        "experimental_setup": {
+            "hardware": [h.get("name") for h in technical_facts.get("experimental_setup", {}).get("hardware", [])],
+            "software": [s.get("name") for s in technical_facts.get("experimental_setup", {}).get("software_and_frameworks", [])],
+            "hyperparameters": [
+                f"{hp.get('name')}={hp.get('value')}"
+                for hp in technical_facts.get("experimental_setup", {}).get("hyperparameters", [])
+            ],
+        },
+        "contributions": [c.get("statement") for c in technical_facts.get("contributions", [])[:5]],
+        "limitations": [l.get("statement") for l in technical_facts.get("limitations", [])[:5]],
+    }
+
+
 # ============================================================
 # STEP 1: RESEARCH PROFILE EXTRACTION
 # ============================================================
 
 def extract_research_profile(
-    client, title_candidate, abstract, introduction
+    client, title_candidate, abstract, introduction, technical_facts=None
 ):
     paper_content = {
         "title_candidate": title_candidate,
         "abstract": abstract,
         "introduction": introduction[:8000]
     }
+    if technical_facts:
+        paper_content["deterministic_technical_facts"] = summarize_facts_for_llm(technical_facts)
 
     instructions = """
 You are an academic research-paper analysis assistant.
@@ -217,6 +286,10 @@ journal name, event theme, author affiliation, or publication venue.
 
 Infer the research area from the supplied content. Do not use a
 predefined list of domains.
+
+Ground your analysis in the supplied deterministic technical facts (extracted
+algorithms, datasets, experimental setup, and metrics with attribution).
+Do not contradict the verified facts or hallucinate alternative metrics.
 
 Return valid JSON with exactly these fields:
 
@@ -433,7 +506,7 @@ A lack of evidence is not proof that a paper is unrelated.
 # STEP 4: EVIDENCE-BASED COMPARATIVE REVIEW
 # ============================================================
 
-def analyze_comparison(client, profile, selected_papers):
+def analyze_comparison(client, profile, selected_papers, technical_facts=None):
     evidence = []
 
     for paper in selected_papers:
@@ -464,6 +537,9 @@ Address:
 9. Limitations and missing evidence.
 
 Rules:
+- Ground comparative claims in the provided new_paper_verified_facts.
+- Use the metric attributions (proposed_work vs prior_work) to ensure baseline
+  or cited metrics are not falsely attributed to the new paper's proposed model.
 - Do not invent results, citations, accuracy values, or datasets.
 - Distinguish a claim made by the author from a result demonstrated
   by the supplied experimental evidence.
@@ -475,14 +551,18 @@ Rules:
 - Return a readable Markdown report.
 """
 
+    payload = {
+        "new_paper_profile": profile,
+        "related_papers": evidence
+    }
+    if technical_facts:
+        payload["new_paper_verified_facts"] = summarize_facts_for_llm(technical_facts)
+
     response = client.responses.create(
         model=LLM_MODEL,
         instructions=instructions,
         input=json.dumps(
-            {
-                "new_paper_profile": profile,
-                "related_papers": evidence
-            },
+            payload,
             ensure_ascii=False
         )
     )
@@ -515,7 +595,20 @@ def save_reports(report, comparison_markdown=None):
         "",
         f"- **Input:** {report['input_file']}",
         f"- **SHA-256:** {report['sha256']}",
-        "",
+        ""
+    ]
+
+    if report.get("new_paper_facts"):
+        lines.extend([
+            "## Technical facts",
+            "",
+            "```json",
+            json.dumps(report["new_paper_facts"], indent=2, ensure_ascii=False),
+            "```",
+            ""
+        ])
+
+    lines.extend([
         "## Research profile",
         "",
         "```json",
@@ -524,7 +617,7 @@ def save_reports(report, comparison_markdown=None):
         "",
         "## Retrieved candidate papers",
         ""
-    ]
+    ])
 
     for paper in report["candidate_papers"]:
         lines.extend([
@@ -619,7 +712,12 @@ def main():
     print("2. Checking exact duplicates...")
     duplicate = find_exact_duplicate(pdf_path, file_hash)
 
-    print("3. Loading local embedding model and ChromaDB...")
+    print("3. Extracting technical facts locally...")
+    technical_facts = extract_technical_facts(
+        pages=pages, full_text=full_text
+    )
+
+    print("4. Loading local embedding model and ChromaDB...")
     model = SentenceTransformer(EMBEDDING_MODEL)
 
     db_client = chromadb.PersistentClient(path=str(VECTOR_DB_DIR))
@@ -632,7 +730,7 @@ def main():
             f"Check your existing index. Details: {error}"
         )
 
-    print("4. Retrieving candidate papers locally...")
+    print("5. Retrieving candidate papers locally...")
     query_text = (
         f"Title candidate:\n{title_candidate}\n\n"
         f"Abstract:\n{abstract}\n\n"
@@ -654,6 +752,7 @@ def main():
         "exact_duplicate": duplicate,
         "title_candidate": title_candidate,
         "abstract": abstract,
+        "new_paper_facts": technical_facts,
         "retrieved_chunk_count": len(retrieved_chunks),
         "candidate_papers": candidates,
         "research_profile": None,
@@ -664,20 +763,21 @@ def main():
     comparison_markdown = None
 
     if args.local_only:
-        print("5. Local-only mode: skipping all API calls.")
+        print("6. Local-only mode: skipping all API calls.")
     else:
         client = get_client()
 
-        print("5. Extracting research profile with LLM...")
+        print("6. Extracting research profile with LLM...")
         profile = extract_research_profile(
             client,
             title_candidate,
             abstract,
-            introduction
+            introduction,
+            technical_facts=technical_facts
         )
         report["research_profile"] = profile
 
-        print("6. Checking candidate relevance with LLM...")
+        print("7. Checking candidate relevance with LLM...")
         relevance = select_relevant_papers(
             client, profile, candidates
         )
@@ -702,9 +802,9 @@ def main():
         # If relevance screening rejects every candidate, do not
         # silently pretend unrelated papers are strong matches.
         if selected:
-            print("7. Generating comparative review...")
+            print("8. Generating comparative review...")
             comparison_markdown = analyze_comparison(
-                client, profile, selected
+                client, profile, selected, technical_facts=technical_facts
             )
         else:
             comparison_markdown = (
@@ -727,6 +827,11 @@ def main():
     print("RESEARCH PAPER REVIEW COMPLETE")
     print("=" * 55)
     print(f"Input: {pdf_path}")
+    print(
+        f"Technical facts: {len(technical_facts['algorithms'])} algorithms, "
+        f"{len(technical_facts['techniques_and_architectures'])} techniques, "
+        f"{len(technical_facts['metrics_and_results'])} metric results"
+    )
     print(f"Retrieved chunks: {len(retrieved_chunks)}")
     print(f"Candidate papers: {len(candidates)}")
 
